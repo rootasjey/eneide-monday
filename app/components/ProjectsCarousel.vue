@@ -56,7 +56,7 @@
           class="flex-shrink-0 w-72 md:w-80 lg:w-[22rem] group animate-entrance-item"
           :style="{ animationDelay: `${i * 60}ms` }"
         >
-          <NuxtLink :to="`/posts/${project.slug}`" class="block">
+          <NuxtLink :to="$localePath(`/posts/${project.slug}`)" class="block">
             <!-- Taller image with overlayed text -->
             <div class="relative overflow-hidden rounded-xl aspect-[4/5]">
               <PostImage :src="project.image" :alt="project.title" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
@@ -82,7 +82,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import type { Post } from '~~/shared/types/post'
-const { $t, $getLocale } = useI18n()
+const { $t, $getLocale, $localePath } = useI18n()
 import {
   FEATURED_PROJECT_FALLBACK_IMAGE,
   FEATURED_PROJECT_TAG,

@@ -17,7 +17,7 @@
         v-else-if="error"
         :title="$t('components.topPinned.unavailable')"
         :description="$t('components.topPinned.unavailableDesc')"
-        secondary-to="/posts"
+        :secondary-to="$localePath('/posts')"
         :secondary-label="$t('common.viewAllPosts')"
         variant="card"
         icon="i-ph-chats-duotone"
@@ -31,7 +31,7 @@
           :class="['group', itemClass, 'animate-entrance-item']"
           :style="{ animationDelay: `${i * 60}ms` }"
         >
-          <NuxtLink :to="`/posts/${post.slug}`" class="flex gap-3 md:gap-4 items-start">
+          <NuxtLink :to="$localePath(`/posts/${post.slug}`)" class="flex gap-3 md:gap-4 items-start">
             <!-- Image on Left (smaller) -->
             <div v-if="post.image?.src" class="relative overflow-hidden rounded-xl w-24 h-24 md:w-28 md:h-28 xl:w-24 xl:h-24 flex-shrink-0">
               <PostImage :src="post.image.src" :alt="post.image.alt || post.name" class="w-full h-full object-cover" />
@@ -39,7 +39,7 @@
 
             <!-- Content on Right -->
             <div class="flex-1 min-w-0">
-              <h2 class="text-base md:text-lg xl:text-base font-text font-bold mb-2 group-hover:underline transition-all line-clamp-1 md:line-clamp-1">
+              <h2 class="text-base md:text-lg xl:text-base font-text font-800 mb-2 group-hover:underline transition-all line-clamp-1 md:line-clamp-1">
                 {{ post.name }}
               </h2>
               <div class="flex items-center gap-2 font-600 text-xs text-gray-500 dark:text-gray-400">
@@ -47,7 +47,7 @@
                 <span>—</span>
                 <span>{{ post.user?.name }}</span>
               </div>
-              <span class="line-clamp-2 text-size-4 font-500 text-gray-700 dark:text-gray-300">{{ post.description }}</span>
+              <span class="line-clamp-2 text-sm font-500 text-gray-700 dark:text-gray-300">{{ post.description }}</span>
             </div>
           </NuxtLink>
         </article>
@@ -67,7 +67,7 @@
 
             <!-- Content on Right -->
             <div class="flex-1 min-w-0">
-              <h2 class="text-base md:text-lg xl:text-base font-text font-bold mb-2 line-clamp-2">
+              <h2 class="text-base md:text-lg xl:text-base font-text font-800 mb-2 line-clamp-2">
                 {{ item.title }}
               </h2>
               <div class="flex items-center gap-2 font-600 text-xs text-gray-500 dark:text-gray-400">
@@ -86,7 +86,7 @@
 <script setup lang="ts">
 import type { Post } from '~~/shared/types/post'
 
-const { $getLocale } = useI18n()
+const { $getLocale, $localePath } = useI18n()
 const { enhancePost } = usePost()
 const TOP_PINNED_TAG = 'top pinned' 
 

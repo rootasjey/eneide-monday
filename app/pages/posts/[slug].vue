@@ -26,7 +26,7 @@
             <NuxtLink
               v-for="tag in post.tags"
               :key="tag.id"
-              :to="{ path: '/tags', query: { tag: tag.name } }"
+              :to="$localePath({ path: '/tags', query: { tag: tag.name } })"
               class="uppercase bg-[#F2F3F4] text-color-black dark:bg-gray-600 dark:text-color-white rounded-full px-4 py-1 text-xs font-semibold flex items-center transition-transform hover:scale-105 active:scale-95"
               :aria-label="`View posts for tag ${tag.name}`"
             >
@@ -54,7 +54,7 @@
 
     <!-- Featured Image -->
     <div v-if="post.image?.src" class="w-full px-4 animate-entrance" style="animation-delay: 360ms;">
-      <PostImage provider="hubblob" :src="post.image.src" :alt="post.image.alt || post.name" class="w-full h-auto max-h-[90vh] object-cover rounded-2xl" />
+      <PostImage :src="post.image.src" :alt="post.image.alt || post.name" class="w-full h-auto max-h-[90vh] object-cover rounded-2xl" />
     </div>
 
     <!-- Post Info Bar Below Image -->
@@ -63,7 +63,7 @@
         <div class="max-w-3xl mx-auto py-6">
           <div class="flex items-center justify-between flex-wrap gap-4">
             <!-- Author Info -->
-            <NLink v-if="post.user" :to="`/authors/${post.user.slug || post.user.id}`" class="flex items-center gap-3">
+            <NLink v-if="post.user" :to="$localePath(`/authors/${post.user.slug || post.user.id}`)" class="flex items-center gap-3">
               <PostImage provider="hubblob" v-if="post.user.avatar" :src="post.user.avatar" :alt="post.user.name || $t('pages.post.userAlt')" class="w-8 h-8 rounded-full border" />
               <div v-if="post.user.name">
                 <div class="font-semibold">{{ post.user.name }}</div>
@@ -114,7 +114,7 @@
             <NuxtLink
               v-for="t in allVersions"
               :key="t.language"
-              :to="t.slug ? `/posts/${t.slug}` : undefined"
+              :to="t.slug ? $localePath(`/posts/${t.slug}`, t.language) : undefined"
               class="px-3 py-1 rounded-full text-xs font-semibold transition-colors"
               :class="t.active
                 ? 'bg-black dark:bg-white text-white dark:text-black'
@@ -146,7 +146,7 @@
         <div class="max-w-3xl mx-auto border-t pt-8">
           <div class="flex items-center justify-between gap-8 flex-wrap md:flex-nowrap">
             <!-- Left: Avatar and Name -->
-            <NLink :to="`/authors/${post.user.slug || post.user.id}`" class="flex items-center gap-6">
+            <NLink :to="$localePath(`/authors/${post.user.slug || post.user.id}`)" class="flex items-center gap-6">
               <PostImage provider="hubblob" v-if="post.user.avatar" :src="post.user.avatar" :alt="post.user.name || $t('pages.post.userAlt')" class="w-12 h-12 rounded-full flex-shrink-0 ring-4 ring-white/10 border" />
               <div>
                 <h3 class="text-md font-bold mb-1">{{ post.user.name }}</h3>
@@ -232,7 +232,7 @@
 <script setup lang="ts">
 import type { Post } from '~~/shared/types/post'
 
-const { $t } = useI18n()
+const { $t, $localePath } = useI18n()
 const route = useRoute()
 const slug = route.params.slug as string
 const { enhancePost, formatPostDate } = usePost()

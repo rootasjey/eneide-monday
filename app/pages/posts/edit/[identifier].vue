@@ -80,7 +80,7 @@
     <!-- Featured Image (preview / placeholder) -->
     <div v-if="previewSrc || post.image?.src" class="w-full px-4 relative group">
       <img v-if="previewSrc" :src="previewSrc" :alt="post.image?.alt || post.name" class="w-full h-auto max-h-[80vh] object-cover rounded-2xl" />
-      <NuxtImg v-else provider="hubblob" :src="post.image.src" :alt="post.image.alt || post.name" class="w-full h-auto max-h-[80vh] object-cover rounded-2xl" />
+      <NuxtImg v-else :src="post.image.src" :alt="post.image.alt || post.name" class="w-full h-auto max-h-[80vh] object-cover rounded-2xl" />
 
       <div v-if="uploadingCover" class="absolute left-0 bottom-0 w-full h-1 bg-black/20 rounded-b-2xl overflow-hidden">
         <div class="h-full bg-primary transition-all duration-300" :style="{ width: uploadProgress + '%' }" />
@@ -303,6 +303,7 @@ const router = useRouter()
 const identifier = computed(() => route.params.identifier as string)
 
 const { user } = useUserSession()
+const isAdmin = computed(() => user.value?.role === 'admin')
 const { top: toolbarTop } = useHeaderToolbarOffset({ baseOffsetPx: 0 })
 const { enhancePost, formatPostDate } = usePost()
 const tagStore = useTagStore()
@@ -603,7 +604,7 @@ const fetchPost = async () => {
     const data = await fetchPostApi(identifier.value)
     post.value = data
 
-    if (data.user?.id !== user.value?.id) {
+    if (data.user?.id !== user.value?.id && !isAdmin.value) {
       error.value = 'You are not authorized to edit this post'
       router.push('/posts')
       return

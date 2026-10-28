@@ -16,28 +16,28 @@
 
         <nav class="space-y-1">
           <NuxtLink
-            to="/"
+            :to="$localePath('/')"
             class="block py-3 px-4 text-base hover:bg-gray-50 dark:hover:bg-gray-800 rounded transition-colors"
             @click="closeMobileMenu"
           >
             {{ $t('nav.home') }}
           </NuxtLink>
           <NuxtLink
-            to="/about"
+            :to="$localePath('/about')"
             class="block py-3 px-4 text-base hover:bg-gray-50 dark:hover:bg-gray-800 rounded transition-colors"
             @click="closeMobileMenu"
           >
             {{ $t('nav.about') }}
           </NuxtLink>
           <NuxtLink
-            to="/authors"
+            :to="$localePath('/authors')"
             class="block py-3 px-4 text-base hover:bg-gray-50 dark:hover:bg-gray-800 rounded transition-colors"
             @click="closeMobileMenu"
           >
             {{ $t('nav.authors') }}
           </NuxtLink>
           <NuxtLink
-            to="/tags"
+            :to="$localePath('/tags')"
             class="block py-3 px-4 text-base hover:bg-gray-50 dark:hover:bg-gray-800 rounded transition-colors"
             @click="closeMobileMenu"
           >
@@ -45,7 +45,7 @@
           </NuxtLink>
           <template v-if="!isLoggedIn">
             <NuxtLink
-              to="/signin"
+              :to="$localePath('/signin')"
               class="block py-3 px-4 text-base hover:bg-gray-50 dark:hover:bg-gray-800 rounded transition-colors"
               @click="closeMobileMenu"
             >
@@ -56,21 +56,21 @@
             <button @click="() => { handleLogout(); closeMobileMenu(); }" class="w-full text-left block py-3 px-4 text-base hover:bg-gray-50 dark:hover:bg-gray-800 rounded transition-colors">{{ $t('common.signout') }}</button>
           </template>
           <NuxtLink
-            to="/signup"
+            :to="$localePath('/signup')"
             class="block py-3 px-4 text-base hover:bg-gray-50 dark:hover:bg-gray-800 rounded transition-colors"
             @click="closeMobileMenu"
           >
             {{ $t('common.signup') }}
           </NuxtLink>
           <NuxtLink
-            to="/subscribe"
+            :to="$localePath('/subscribe')"
             class="block py-3 px-4 text-base hover:bg-gray-50 dark:hover:bg-gray-800 rounded transition-colors"
             @click="closeMobileMenu"
           >
             {{ $t('common.subscribe') }}
           </NuxtLink>
           <NuxtLink
-            to="/membership"
+            :to="$localePath('/membership')"
             class="block py-3 px-4 text-base hover:bg-gray-50 dark:hover:bg-gray-800 rounded transition-colors"
             @click="closeMobileMenu"
           >
@@ -123,7 +123,7 @@
           'bg-white/80 dark:bg-gray-950/80 backdrop-blur': isScrolled
         }"
       >
-        <NuxtLink to="/" class="ml-1 flex items-center gap-2 bg-black/10 px-3 py-1 rounded-full">
+        <NuxtLink :to="$localePath('/')" class="ml-1 flex items-center gap-2 bg-black/10 px-3 py-1 rounded-full">
           <span
             class="font-title font-bold text-xl"
             :class="{
@@ -164,7 +164,7 @@
           class="flex justify-center px-6 border-b border-gray-200 dark:border-gray-800 transition-all duration-300"
           :class="isScrolled ? 'mb-2 pb-3' : 'mb-6 pb-6'"
         >
-          <NuxtLink to="/" class="flex items-center">
+          <NuxtLink :to="$localePath('/')" class="flex items-center">
             <span
               class="font-title font-bold text-black dark:text-white transition-all duration-300"
               :class="isScrolled ? 'text-3xl' : 'text-4xl'"
@@ -192,16 +192,16 @@
 
           <!-- Center: Navigation Links -->
           <nav class="flex items-center gap-8 text-sm font-medium justify-self-center">
-            <NuxtLink to="/" class="font-600 hover:underline decoration-offset-6 text-gray-700 dark:text-gray-100 hover:text-black dark:hover:text-white transition-colors">
+            <NuxtLink :to="$localePath('/')" class="font-600 hover:underline decoration-offset-6 text-gray-700 dark:text-gray-100 hover:text-black dark:hover:text-white transition-colors">
               {{ $t('nav.home') }}
             </NuxtLink>
-            <NuxtLink to="/projects" class="font-600 hover:underline decoration-offset-6 text-gray-700 dark:text-gray-100 hover:text-black dark:hover:text-white transition-colors">
+            <NuxtLink :to="$localePath('/projects')" class="font-600 hover:underline decoration-offset-6 text-gray-700 dark:text-gray-100 hover:text-black dark:hover:text-white transition-colors">
               {{ $t('nav.projects') }}
             </NuxtLink>
-            <NuxtLink to="/posts" class="font-600 hover:underline decoration-offset-6 text-gray-700 dark:text-gray-100 hover:text-black dark:hover:text-white transition-colors">
+            <NuxtLink :to="$localePath('/posts')" class="font-600 hover:underline decoration-offset-6 text-gray-700 dark:text-gray-100 hover:text-black dark:hover:text-white transition-colors">
               {{ $t('nav.posts') }}
             </NuxtLink>
-            <NuxtLink to="/about" class="font-600 hover:underline decoration-offset-6 text-gray-700 dark:text-gray-100 hover:text-black dark:hover:text-white transition-colors">
+            <NuxtLink :to="$localePath('/about')" class="font-600 hover:underline decoration-offset-6 text-gray-700 dark:text-gray-100 hover:text-black dark:hover:text-white transition-colors">
               {{ $t('nav.about') }}
             </NuxtLink>
           </nav>
@@ -209,7 +209,7 @@
           <!-- Right: Auth + Search + Theme -->
           <div class="flex items-center gap-3 justify-self-end">
             <template v-if="!isLoggedIn">
-              <NuxtLink to="/signin" class="text-sm font-600 text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">
+              <NuxtLink :to="$localePath('/signin')" class="text-sm font-600 text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white transition-colors">
                 {{ $t('common.signin') }}
               </NuxtLink>
             </template>
@@ -222,7 +222,7 @@
                 </NButton>
               </NDropdownMenu>
             </template>
-            <NuxtLink to="/donate" class="uppercase px-4 py-2 bg-black dark:bg-white text-white dark:text-black text-xs font-bold uppercase tracking-wide rounded-4 hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors">
+            <NuxtLink :to="$localePath('/donate')" class="uppercase px-4 py-2 bg-black dark:bg-white text-white dark:text-black text-xs font-bold uppercase tracking-wide rounded-4 hover:bg-gray-800 dark:hover:bg-gray-200 transition-colors">
               {{ $t('nav.donate') }}
             </NuxtLink>
 
@@ -339,7 +339,7 @@ async function handleLogout() {
   }
 }
 
-const { $t, $ts, $getLocale, $switchLocale, $getLocales } = useI18n()
+const { $t, $ts, $getLocale, $switchLocale, $getLocales, $localePath } = useI18n()
 
 const localeOptions = computed(() => $getLocales().map(l => ({ code: l.code, displayName: l.displayName || l.code })))
 

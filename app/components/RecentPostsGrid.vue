@@ -2,14 +2,14 @@
   <section class="py-12 md:py-16 animate-entrance">
     <div class="container mx-auto px-4 max-w-7xl">
       <div class="flex items-center justify-between px-1 mb-6">
-        <NuxtLink to="/posts" class="inline-block">
+        <NuxtLink :to="$localePath('/posts')" class="inline-block">
           <h2 class="text-[11px] uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">
             {{ $t('components.recentPosts.heading') }}
           </h2>
         </NuxtLink>
 
         <NuxtLink
-          to="/posts"
+          :to="$localePath('/posts')"
           class="text-[11px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 flex items-center gap-1"
           :aria-label="$t('common.viewAllPosts')"
         >
@@ -28,7 +28,7 @@
         v-else-if="error"
         :title="$t('components.recentPosts.unavailable')"
         :description="$t('components.recentPosts.unavailableDesc')"
-        secondary-to="/posts"
+        :secondary-to="$localePath('/posts')"
         :secondary-label="$t('common.retry')"
         variant="card"
         icon="i-ph-clock-counter-clockwise-duotone"
@@ -62,7 +62,7 @@
           class="group flex flex-col animate-entrance-item"
           :style="{ animationDelay: `${i * 40}ms` }"
         >
-          <NuxtLink :to="`/posts/${post.slug}`" class="block flex flex-col h-full">
+          <NuxtLink :to="$localePath(`/posts/${post.slug}`)" class="block flex flex-col h-full">
             <!-- Image -->
             <div v-if="post.image?.src" class="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4">
               <PostImage :src="post.image.src" :alt="post.image.alt || post.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
@@ -113,7 +113,7 @@
 import type { Post } from '~~/shared/types/post'
 import { EXCLUDED_TAGS } from '~/utils/tagConstants'
 
-const { $t } = useI18n()
+const { $t, $getLocale, $localePath } = useI18n()
 const { enhancePost } = usePost()
 
 // Client-side pagination with Load more
@@ -126,7 +126,7 @@ const hasMore = ref(false)
 const loadingMore = ref(false)
 
 async function load(pageToLoad = 1) {
-  const params = { page: pageToLoad, limit, exclude: EXCLUDED_TAGS.join(',') }
+  const params = { page: pageToLoad, limit, exclude: EXCLUDED_TAGS.join(','), language: $getLocale() }
   try {
     if (pageToLoad === 1) {
       pending.value = true

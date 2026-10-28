@@ -2,13 +2,13 @@
   <section class="mt-6 space-y-5">
     <div class="flex items-center justify-between px-1">
       <div>
-        <NuxtLink to="/projects" class="inline-block mb-1">
+        <NuxtLink :to="$localePath('/projects')" class="inline-block mb-1">
           <h2 class="text-[11px] uppercase tracking-[0.3em] text-slate-500 dark:text-slate-400">{{ $t('components.mobileProjects.heading') }}</h2>
         </NuxtLink>
       </div>
       
       <NuxtLink
-        to="/projects"
+        :to="$localePath('/projects')"
         class="text-[11px] uppercase tracking-[0.2em] text-slate-500 dark:text-slate-400 flex items-center gap-1"
         :aria-label="$t('common.viewAllPosts')"
       >
@@ -57,7 +57,7 @@
         <NuxtLink
           v-for="project in chunk"
           :key="project.slug"
-          :to="`/posts/${project.slug}`"
+          :to="$localePath(`/posts/${project.slug}`)"
           class="h-48 w-38 flex flex-col items-center gap-3 rounded-2xl bg-gradient-to-b from-slate-50/80 to-white/90 
             p-1 text-center transition hover:border-primary/60 dark:border-white/10 
             dark:from-white/5 dark:to-white/0"
@@ -79,7 +79,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import type { Post } from '~~/shared/types/post'
-const { $t, $getLocale } = useI18n()
+const { $t, $getLocale, $localePath } = useI18n()
 import {
   FEATURED_PROJECT_FALLBACK_IMAGE,
   FEATURED_PROJECT_TAG,

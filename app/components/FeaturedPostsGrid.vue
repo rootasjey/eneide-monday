@@ -16,7 +16,7 @@
         v-else-if="error"
         :title="$t('components.featuredPosts.unavailable')"
         :description="$t('components.featuredPosts.unavailableDesc')"
-        secondary-to="/posts"
+        :secondary-to="$localePath('/posts')"
         :secondary-label="$t('common.viewAllPosts')"
         variant="card"
         icon="i-ph-newspaper-duotone"
@@ -24,7 +24,7 @@
 
       <!-- First row: single large article with image left, text right -->
       <article v-else-if="featuredPosts[0]" class="group mb-10 md:mb-12 animate-entrance-item" :style="{ animationDelay: '0ms' }">
-        <NuxtLink :to="`/posts/${featuredPosts[0].slug}`" class="block">
+        <NuxtLink :to="$localePath(`/posts/${featuredPosts[0].slug}`)" class="block">
           <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
             <!-- Image left -->
             <div class="md:col-span-6">
@@ -62,7 +62,7 @@
           class="group flex flex-col animate-entrance-item"
           :style="{ animationDelay: `${(i + 1) * 60}ms` }"
         >
-          <NuxtLink :to="`/posts/${post.slug}`" class="block flex flex-col h-full">
+          <NuxtLink :to="$localePath(`/posts/${post.slug}`)" class="block flex flex-col h-full">
             <div v-if="post.image?.src" class="relative overflow-hidden rounded-2xl aspect-[4/3] mb-4">
               <PostImage :src="post.image.src" :alt="post.image.alt || post.name" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
 
@@ -148,7 +148,7 @@
 
 <script setup lang="ts">
 import type { Post } from '~~/shared/types/post'
-const { $t, $getLocale } = useI18n()
+const { $t, $getLocale, $localePath } = useI18n()
 const { enhancePost } = usePost()
 
 const FEATURED_POST_TAG = 'featured post'

@@ -19,7 +19,7 @@
             :style="{ animationDelay: `${index * 100}ms` }"
           >
             <NuxtLink
-              :to="post.slug ? `/posts/${post.slug}` : '#'"
+              :to="post.slug ? $localePath(`/posts/${post.slug}`) : '#'"
               class="block h-[82vh] overflow-hidden rounded-[32px] border border-white/10 bg-slate-900"
             >
               <PostImage v-if="post.image?.src" :src="post.image.src" :alt="post.image.alt || post.name" class="absolute inset-0 h-full w-full object-cover" format="webp" loading="lazy" />
@@ -49,7 +49,7 @@
                   </p>
                   <div class="flex flex-wrap items-center gap-3">
                     <NuxtLink
-                      :to="post.slug ? `/posts/${post.slug}` : '#'"
+                      :to="post.slug ? $localePath(`/posts/${post.slug}`) : '#'"
                       class="inline-flex items-center gap-2 rounded-full bg-white text-gray-900 px-4 py-2 font-semibold shadow-lg shadow-black/20"
                     >
                       {{ $t('components.featuredHero.readArticle') }}
@@ -116,7 +116,7 @@ import { useEventListener, useThrottleFn } from '@vueuse/core'
 import type { Post } from '~~/shared/types/post'
 import type { ApiTag } from '~~/shared/types/tags'
 
-const { $t, $getLocale } = useI18n()
+const { $t, $getLocale, $localePath } = useI18n()
 const { enhancePost } = usePost()
 const FEATURED_POST_TAG = 'featured post'
 
